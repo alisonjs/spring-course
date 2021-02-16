@@ -54,7 +54,7 @@ public class RequestStagesRepositoryTest {
 
     @Test
     public void listByRequestIdTest(){
-        List<RequestStage> stages = repository.findAll();
+        List<RequestStage> stages = repository.findAllByRequestId(1L);
         Assertions.assertThat(stages.size()).isEqualTo(1);
     }
 
