@@ -3,7 +3,6 @@ package com.springcourse.service;
 import com.springcourse.domain.User;
 import com.springcourse.repository.UserRepository;
 import com.springcourse.service.util.HashUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +11,11 @@ import java.util.Optional;
 @Service
 public class Userservice {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public Userservice(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User save(User user){
         String hash = HashUtil.getSecureHash(user.getPassword());
