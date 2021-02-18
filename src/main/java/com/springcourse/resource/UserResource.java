@@ -1,7 +1,9 @@
 package com.springcourse.resource;
 
+import com.springcourse.domain.Request;
 import com.springcourse.domain.User;
 import com.springcourse.dto.UserLoginDto;
+import com.springcourse.service.RequestService;
 import com.springcourse.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +16,11 @@ import java.util.List;
 public class UserResource {
 
     private final UserService userService;
+    private final RequestService requestService;
 
-    public UserResource(UserService userService) {
+    public UserResource(UserService userService, RequestService requestService) {
         this.userService = userService;
+        this.requestService = requestService;
     }
 
     @PostMapping
@@ -41,6 +45,12 @@ public class UserResource {
     @GetMapping
     public ResponseEntity<List<User>> listAll(){
         List<User> users = userService.listAll();
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/{id}/requests")
+    public ResponseEntity<List<Request>> listAllRequestsById(@PathVariable(name="id") Long id){
+        List<Request> users = requestService.listAllByOwnerId(id);
         return ResponseEntity.ok(users);
     }
 
