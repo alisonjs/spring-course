@@ -1,6 +1,7 @@
 package com.springcourse.service;
 
 import com.springcourse.domain.User;
+import com.springcourse.exceptions.NotFoundException;
 import com.springcourse.repository.UserRepository;
 import com.springcourse.service.util.HashUtil;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class UserService {
 
     public User getById(Long id){
         Optional<User> result =  userRepository.findById(id);
-        return result.orElse(null);
+        return result.orElseThrow(() -> new NotFoundException("There are not user with id " + id));
     }
 
     public List<User> listAll(){
