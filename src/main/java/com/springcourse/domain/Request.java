@@ -1,10 +1,8 @@
 package com.springcourse.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springcourse.domain.enums.RequestState;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -43,6 +41,7 @@ public class Request implements Serializable {
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
+    @Getter(onMethod = @__({@JsonIgnore}))
     @OneToMany(mappedBy = "request")
     private List<RequestStage> stages = new ArrayList<>();
 }
